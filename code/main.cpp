@@ -34,14 +34,11 @@
 #include <unistd.h>
 #include <pango/pangocairo.h>
 #include "screen.h"
-#include "gcal.h"
 #include "secrets.h"
 #include "../lib/json.hpp"
 
 using json = nlohmann::json;
 
-const char *GOOGLE_TIME_FORMAT = "%Y-%m-%dT%H:%M:%S%z";
-const char *GOOGLE_DATE_FORMAT = "%Y-%m-%d";
 const char *HEADPHONES_PNG = "/home/pi/upNext/resources/icons/events/icons8-headphones-50.png";
 const char *PARTY_PNG = "/home/pi/upNext/resources/icons/events/icons8-confetti-50.png";
 
