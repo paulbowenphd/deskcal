@@ -50,6 +50,7 @@ const char *SUBTITLE_FONT = "Proxima Nova Regular 24";
 const char *SMALL_TEXT_BOLD_FONT = "Proxima Nova Bold 16";
 const char *SMALL_TEXT_REGULAR_FONT = "Proxima Nova Regular 16";
 
+// FUNCTIONS
 void draw_clock(cairo_t *cr);
 
 
@@ -79,6 +80,38 @@ void draw_clock(cairo_t *cr) {
   g_object_unref (layout);
 }
 
+
+void draw_image(cairo_t *cr, string message, const char* filepath) {
+  int margin = 10;
+  PangoLayout *layout = pango_cairo_create_layout (cr);
+  PangoFontDescription *font_description = pango_font_description_from_string (SUBTITLE_FONT);
+  pango_layout_set_font_description (layout, font_description);
+  // Center, slightly below center
+  cairo_move_to (cr, margin, 200);
+  pango_layout_set_width (layout, (400 - 2 * margin) * PANGO_SCALE);
+  // Only draw one line
+  pango_layout_set_height (layout, -1);
+  pango_layout_set_alignment (layout, PANGO_ALIGN_CENTER);
+
+  pango_layout_set_text (layout, message.c_str(), -1);
+  pango_cairo_show_layout(cr, layout);
+
+  // Draw image, restore source
+  cairo_surface_t *image = cairo_image_surface_create_from_png(filepath);
+  if (cairo_surface_status(image) == CAIRO_STATUS_SUCCESS) {
+    cairo_set_source_surface (cr, image, 125, 50);
+    cairo_paint (cr);
+  }
+
+  cairo_surface_destroy (image);
+  pango_font_description_free (font_description);
+  g_object_unref (layout);
+}
+
+
+
+
+// MAIN PROGRAM //
 int main(void)
 {
     Screen screen;
